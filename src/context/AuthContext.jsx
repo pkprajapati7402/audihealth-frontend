@@ -4,7 +4,7 @@ import axios from "axios";
 
 export const AuthContext = createContext();
 
-const API_URL = "http://localhost:8000/api/users";
+const API_URL = "https://audihealth-backend.onrender.com/api/users";
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
