@@ -40,7 +40,7 @@ export default function Dashboard() {
 
   const fetchDashboardData = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/api/reports/dashboard-stats', {
+      const response = await axios.get('https://audihealth-backend.onrender.com/api/reports/dashboard-stats', {
         headers: { Authorization: `Bearer ${localStorage.getItem("accessToken")}` }
       });
       setDashboardData(response.data.data);
