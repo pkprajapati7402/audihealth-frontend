@@ -245,7 +245,7 @@ const ExercisesPage = () => {
   const fetchExerciseProgress = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:3000/api/exercises/progress",
+        "https://audihealth-backend.onrender.com/api/exercises/progress",
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -287,7 +287,7 @@ const ExercisesPage = () => {
     try {
       // Send the updated exercise progress to the backend
       await axios.post(
-        "http://localhost:3000/api/exercises/track",
+        "https://audihealth-backend.onrender.com/api/exercises/track",
         { completedExercises: updatedExercises },
         {
           headers: {
