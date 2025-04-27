@@ -42,6 +42,7 @@ const AudiBuddy = () => {
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isListening, setIsListening] = useState(false);
+  const [isSpeakingEnabled, setIsSpeakingEnabled] = useState(true); // State to toggle bot speaking
   const messagesEndRef = useRef(null);
 
   const API_URL = "https://api.groq.com/openai/v1/chat/completions";
@@ -122,7 +123,11 @@ If the user asks about their voice analysis or diagnostic reports, explain the p
         };
 
         setMessages((prev) => [...prev, botMessage]);
-        playBotResponse(botMessage.content); // Play the bot's response
+
+        // Play the bot's response if speaking is enabled
+        if (isSpeakingEnabled) {
+          playBotResponse(botMessage.content);
+        }
       } catch (error) {
         console.error("Error:", error);
         const errorMessage = {
@@ -180,6 +185,10 @@ If the user asks about their voice analysis or diagnostic reports, explain the p
     window.speechSynthesis.speak(utterance);
   };
 
+  const toggleSpeaking = () => {
+    setIsSpeakingEnabled((prev) => !prev);
+  };
+
   return (
     <div className="flex flex-col h-screen w-full mx-auto">
       <div className="flex items-center justify-between p-4 border-b border-pink-100">
@@ -226,8 +235,10 @@ If the user asks about their voice analysis or diagnostic reports, explain the p
             <Send className="w-5 h-5" />
           </button>
           <button
-            onClick={() => playBotResponse(messages[messages.length - 1]?.content || "")}
-            className="p-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-colors"
+            onClick={toggleSpeaking}
+            className={`p-2 ${
+              isSpeakingEnabled ? "bg-green-500" : "bg-gray-500"
+            } text-white rounded-lg hover:bg-green-600 transition-colors`}
           >
             <Volume2 className="w-5 h-5" />
           </button>
